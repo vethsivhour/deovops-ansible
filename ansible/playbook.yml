@@ -1,0 +1,41 @@
+- name: Configure server1-i4d
+  remote_user: root
+  hosts: myservers
+  gather_facts: yes
+  tasks:
+    - name: Ping the server
+      ping:
+
+    - name: Update package cache
+      apk:
+        update_cache: yes
+      become: yes
+
+    - name: Install additional packages
+      apk:
+        name: 
+          - curl
+          - vim
+          - htop
+        state: present
+      become: yes
+
+    - name: Create a test directory
+      file:
+        path: /server1/test_dir
+        state: directory
+        mode: '0755'
+
+    - name: Copy a test file
+      copy:
+        content: "This is a test file created by Ansible\n"
+        dest: /server1/test_dir/test.txt
+        mode: '0644'
+
+    - name: Display system information
+      shell: uname -a
+      register: system_info
+
+    - name: Show system information
+      debug:
+        var: system_info.stdout_lines

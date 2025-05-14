@@ -1,0 +1,15 @@
+services:
+  control-machine-i4d:
+    image: debian:stable-slim
+    command: sh -c "apt-get update && apt-get install -y ansible sshpass && tail -f /dev/null"
+    container_name: control-machine-i4d
+    volumes:
+      - "./ansible:/ansible"
+    links:
+      - server1-i4d
+  server1-i4d:
+    image: alpine
+    command: sh -c "apk add --no-cache openssh && echo 'root:P@ssw0rd1' | chpasswd && ssh-keygen -A && /usr/sbin/sshd && tail -f /dev/null"
+    container_name: server1-i4d
+    volumes:
+      - "./server1:/server1"
