@@ -23,8 +23,8 @@ This project demonstrates a simple Ansible setup using Docker containers, where 
 
 1. Clone this repository:
 ```bash
-git clone <repository-url>
-cd <repository-name>
+git clone https://github.com/vethsivhour/deovops-ansible
+cd deovops-ansible
 ```
 
 2. Start the containers:
